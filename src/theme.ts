@@ -37,6 +37,11 @@ export default {
     light: '#f8f9fa',
     dark: '#343a40',
     textMuted: '#6c757d',
+    beginner: '#1fd6fe',
+    basic: '#fdac1c',
+    difficult: '#ff1e3c',
+    expert: '#33eb19',
+    challenge: '#eb1eff',
   },
   space: ['0rem', '0.25rem', '0.5rem', '1rem', '1.5rem', '3rem'],
   shadows: {
