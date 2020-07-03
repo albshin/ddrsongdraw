@@ -1,25 +1,13 @@
 import React, { useCallback } from 'react';
-import styled from '@emotion/styled';
 import { IoMdSettings } from 'react-icons/io';
 import { RouteComponentProps } from '@reach/router';
 
-import LinkIcon from '../components/LinkIcon';
 import { useStore } from '../stores/drawStore';
+import { Layout, Content } from '../components/shared';
+import LinkIcon from '../components/LinkIcon';
 import Navbar from '../components/Navbar';
 import ChartList from '../components/ChartList';
 import BottomNav from '../components/BottomNav';
-
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const Content = styled.main`
-  flex: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
-`;
 
 const CardDraw: React.FC<RouteComponentProps> = () => {
   const { chartsDraw } = useStore();
