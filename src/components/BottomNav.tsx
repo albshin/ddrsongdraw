@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import { GiCardPickup } from 'react-icons/gi';
 import { IoMdOptions } from 'react-icons/io';
 
+import LinkIcon from '../components/LinkIcon';
+
 const StyledBottomNav = styled.footer`
   display: flex;
   justify-content: space-between;
@@ -17,11 +19,6 @@ const NavIconContainer = styled.div`
   align-items: center;
   height: 50px;
   width: 50px;
-
-  svg {
-    height: 24px;
-    width: 24px;
-  }
 `;
 
 interface BottomNavProps {
@@ -31,7 +28,9 @@ interface BottomNavProps {
 const BottomNav = ({ handleCardDraw }: BottomNavProps) => (
   <StyledBottomNav>
     <NavIconContainer>
-      <IoMdOptions />
+      <LinkIcon to="draw-settings">
+        <IoMdOptions />
+      </LinkIcon>
     </NavIconContainer>
     <NavIconContainer onClick={handleCardDraw}>
       <GiCardPickup />

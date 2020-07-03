@@ -4,6 +4,7 @@ import { Router } from '@reach/router';
 
 import theme from './theme';
 import CardDraw from './pages/CardDraw';
+import DrawSettings from './pages/DrawSettings';
 import Settings from './pages/Settings';
 
 const globalStyle = (theme: Theme) => css`
@@ -32,6 +33,7 @@ const App = () => (
     <GlobalStyle />
     <Router>
       <CardDraw path="/" />
+      <DrawSettings path="/draw-settings" />
       <Settings path="/settings" />
     </Router>
   </ThemeProvider>
