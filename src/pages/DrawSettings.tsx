@@ -2,9 +2,8 @@ import React from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { RouteComponentProps } from '@reach/router';
 
-import LinkIcon from '../components/LinkIcon';
 import Navbar from '../components/Navbar';
-import { Layout, Content } from '../components/shared';
+import { Layout, Content, LinkIcon } from '../components/shared';
 
 const DrawSettings: React.FC<RouteComponentProps> = () => {
   return (

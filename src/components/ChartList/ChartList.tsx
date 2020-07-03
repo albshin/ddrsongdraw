@@ -4,7 +4,7 @@ import ChartListItem from './ChartListItem';
 import { Flipper } from 'react-flip-toolkit';
 import { HandleEnterUpdateDeleteArgs } from 'react-flip-toolkit/lib/FlipToolkit/types';
 
-import { useStore } from '../stores/drawStore';
+import { useStore } from '../../stores/drawStore';
 
 const StyledChartList = styled.div`
   height: 100%;

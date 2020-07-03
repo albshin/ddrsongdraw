@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { GiCardPickup } from 'react-icons/gi';
 import { IoMdOptions } from 'react-icons/io';
 
-import LinkIcon from '../components/LinkIcon';
+import { LinkIcon } from './shared';
 
 const StyledBottomNav = styled.footer`
   display: flex;

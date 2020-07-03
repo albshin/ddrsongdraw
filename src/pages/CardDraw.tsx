@@ -3,10 +3,9 @@ import { IoMdSettings } from 'react-icons/io';
 import { RouteComponentProps } from '@reach/router';
 
 import { useStore } from '../stores/drawStore';
-import { Layout, Content } from '../components/shared';
-import LinkIcon from '../components/LinkIcon';
+import { Layout, Content, LinkIcon } from '../components/shared';
 import Navbar from '../components/Navbar';
-import ChartList from '../components/ChartList';
+import { ChartList } from '../components/ChartList';
 import BottomNav from '../components/BottomNav';
 
 const CardDraw: React.FC<RouteComponentProps> = () => {

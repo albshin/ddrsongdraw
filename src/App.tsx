@@ -3,9 +3,7 @@ import { Global, ThemeProvider, css, withTheme, Theme } from '@emotion/react';
 import { Router } from '@reach/router';
 
 import theme from './theme';
-import CardDraw from './pages/CardDraw';
-import DrawSettings from './pages/DrawSettings';
-import Settings from './pages/Settings';
+import { CardDraw, DrawSettings, Settings } from './pages';
 
 const globalStyle = (theme: Theme) => css`
   * {

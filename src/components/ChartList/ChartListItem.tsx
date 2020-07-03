@@ -5,7 +5,7 @@ import { Flipped, spring } from 'react-flip-toolkit';
 import styled from '@emotion/styled';
 import { IoMdCheckmark, IoMdSync } from 'react-icons/io';
 
-import { ChartProps } from '../types';
+import { ChartProps } from '../../types';
 
 const StyledChartListItem = styled(animated.div)`
   display: flex;
