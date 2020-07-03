@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, RouteComponentProps } from '@reach/router';
+import { RouteComponentProps } from '@reach/router';
 import { IoMdArrowBack } from 'react-icons/io';
 
+import LinkIcon from '../components/LinkIcon';
 import Navbar from '../components/Navbar';
 
 const Settings: React.FC<RouteComponentProps> = () => (
@@ -9,9 +10,9 @@ const Settings: React.FC<RouteComponentProps> = () => (
     <Navbar
       title="Settings"
       navLeft={
-        <Link to="/">
+        <LinkIcon to="/">
           <IoMdArrowBack />
-        </Link>
+        </LinkIcon>
       }
     />
     Settings

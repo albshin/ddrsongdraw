@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
-import { Link } from '@reach/router';
 import { IoMdSettings } from 'react-icons/io';
 import { RouteComponentProps } from '@reach/router';
 
+import LinkIcon from '../components/LinkIcon';
 import { useStore } from '../stores/drawStore';
 import Navbar from '../components/Navbar';
 import ChartList from '../components/ChartList';
@@ -32,9 +32,9 @@ const CardDraw: React.FC<RouteComponentProps> = () => {
     <Layout>
       <Navbar
         navRight={
-          <Link to="settings">
+          <LinkIcon to="settings">
             <IoMdSettings />
-          </Link>
+          </LinkIcon>
         }
         title="Card Draw"
       />

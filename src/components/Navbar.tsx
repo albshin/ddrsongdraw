@@ -9,10 +9,8 @@ const NavItem = styled.div`
   align-items: center;
 
   svg {
-    color: white;
+    color: inherit;
     text-decoration: none;
-    height: 24px;
-    width: 24px;
   }
 `;
 
