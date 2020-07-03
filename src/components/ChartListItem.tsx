@@ -43,14 +43,15 @@ const ActionDisplay = styled(animated.div)`
   z-index: -999;
 `;
 
-const Jacket = styled.img<Pick<ChartProps, 'difficulty'>>`
+const Jacket = styled.div<Pick<ChartProps, 'difficulty' | 'jacket'>>`
   flex: 0 0 74px;
   height: 74px;
   width: 74px;
   border-radius: ${(props) => props.theme.radii.default};
-  background-repeat: no-repeat;
+  background: ${(props) =>
+    `url("assets/jackets/${props.jacket.replace(/[\""]/g, '\\"')}") no-repeat`};
   background-size: cover;
-  box-shadow: inset 0px -7px 0px ${(props) => props.theme.colors[props.difficulty]};
+  box-shadow: inset 0px -5px 0px ${(props) => props.theme.colors[props.difficulty]};
 `;
 
 const SongInformation = styled.div`
@@ -164,7 +165,7 @@ const ChartListItem = ({
     <Flipped flipId={`chart-${id}`} onExit={animateItemOnExit}>
       <Container ref={containerRef} {...bind()}>
         <StyledChartListItem style={{ x }}>
-          <Jacket src={'hi'} difficulty={difficulty} />
+          <Jacket jacket={jacket} difficulty={difficulty} />
           <SongInformation>
             <div>
               <SongName>{name}</SongName>
