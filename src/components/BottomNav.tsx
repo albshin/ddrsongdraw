@@ -6,6 +6,9 @@ import { IoMdOptions } from 'react-icons/io';
 import { LinkIcon } from './shared';
 
 const StyledBottomNav = styled.footer`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,7 +20,7 @@ const NavIconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: ${(props) => props.theme.navbarHeight};
   width: 50px;
 `;
 

@@ -69,4 +69,5 @@ export default {
     lg: '0.3rem',
     pill: '50rem',
   },
+  navbarHeight: '50px',
 };

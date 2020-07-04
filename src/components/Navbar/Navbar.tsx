@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 const NavItem = styled.div`
   display: flex;
-  height: 50px;
+  height: ${(props) => props.theme.navbarHeight};
   width: 50px;
   justify-content: center;
   align-items: center;
@@ -15,6 +15,10 @@ const NavItem = styled.div`
 `;
 
 const StyledNavbar = styled.nav`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;

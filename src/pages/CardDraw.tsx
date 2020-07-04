@@ -25,7 +25,7 @@ const CardDraw: React.FC<RouteComponentProps> = () => {
         }
         title="Card Draw"
       />
-      <Content>
+      <Content hasBottomNav>
         <ChartList />
       </Content>
       <BottomNav handleCardDraw={handleCardDraw} />
