@@ -5,18 +5,17 @@ import { Flipped, spring } from 'react-flip-toolkit';
 import styled from '@emotion/styled';
 import { IoMdCheckmark, IoMdSync } from 'react-icons/io';
 
+import { StyledListGroupItem } from '../../components/ListGroup';
 import { ChartProps } from '../../types';
 
-const StyledChartListItem = styled(animated.div)`
+// Leave this as "any" for now due to react-spring TS performance issues
+const StyledChartListItem = styled(StyledListGroupItem)<any>`
   display: flex;
-  background-color: ${(props) => props.theme.colors.background};
   padding: ${(props) => props.theme.space[2]} ${(props) => props.theme.space[3]};
-  border: 1px solid ${(props) => props.theme.colors.gray[3]};
-  border-width: 1px 0 1px 0;
   width: 100%;
 `;
 
-const Container = styled.div`
+const SwipeableContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
@@ -163,8 +162,8 @@ const ChartListItem = ({
 
   return (
     <Flipped flipId={`chart-${id}`} onExit={animateItemOnExit}>
-      <Container ref={containerRef} {...bind()}>
-        <StyledChartListItem style={{ x }}>
+      <SwipeableContainer ref={containerRef} {...bind()}>
+        <StyledChartListItem as={animated.li} style={{ x }}>
           <Jacket jacket={jacket} difficulty={difficulty} />
           <SongInformation>
             <div>
@@ -193,7 +192,7 @@ const ChartListItem = ({
             <IoMdCheckmark />
           </animated.div>
         </ActionDisplay>
-      </Container>
+      </SwipeableContainer>
     </Flipped>
   );
 };

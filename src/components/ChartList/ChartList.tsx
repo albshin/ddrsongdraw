@@ -5,10 +5,9 @@ import { Flipper } from 'react-flip-toolkit';
 import { HandleEnterUpdateDeleteArgs } from 'react-flip-toolkit/lib/FlipToolkit/types';
 
 import { useStore } from '../../stores/drawStore';
+import { ListGroup } from '../../components/ListGroup';
 
-const StyledChartList = styled.div`
-  height: 100%;
-`;
+const StyledChartList = styled(ListGroup)``;
 
 const handleFlipperAnimations = ({
   hideEnteringElements,
