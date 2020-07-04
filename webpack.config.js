@@ -15,6 +15,7 @@ module.exports = (env, argv) => {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
+    devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     module: {
       rules: [
         {
