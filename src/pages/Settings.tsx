@@ -2,8 +2,9 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { IoMdArrowBack } from 'react-icons/io';
 
-import { LinkIcon } from '../components/shared';
+import { Content, LinkIcon } from '../components/shared';
 import Navbar from '../components/Navbar';
+import { ListGroup, ListGroupItem } from '../components/ListGroup';
 
 const Settings: React.FC<RouteComponentProps> = () => (
   <>
@@ -15,7 +16,11 @@ const Settings: React.FC<RouteComponentProps> = () => (
         </LinkIcon>
       }
     />
-    Settings
+    <Content>
+      <ListGroup title="General">
+        <ListGroupItem link="/settings/about">About</ListGroupItem>
+      </ListGroup>
+    </Content>
   </>
 );
 

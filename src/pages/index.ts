@@ -1,5 +1,6 @@
-import CardDraw from './CardDraw';
+import ChartDraw from './ChartDraw';
 import DrawSettings from './DrawSettings';
 import Settings from './Settings';
+import About from './About';
 
-export { CardDraw, DrawSettings, Settings };
+export { ChartDraw, DrawSettings, Settings, About };

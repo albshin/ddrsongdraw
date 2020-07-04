@@ -8,7 +8,7 @@ import Navbar from '../components/Navbar';
 import { ChartList } from '../components/ChartList';
 import BottomNav from '../components/BottomNav';
 
-const CardDraw: React.FC<RouteComponentProps> = () => {
+const ChartDraw: React.FC<RouteComponentProps> = () => {
   const { chartsDraw } = useStore();
 
   const handleCardDraw = useCallback(() => {
@@ -23,7 +23,7 @@ const CardDraw: React.FC<RouteComponentProps> = () => {
             <IoMdSettings />
           </LinkIcon>
         }
-        title="Card Draw"
+        title="Song Draw"
       />
       <Content hasBottomNav>
         <ChartList />
@@ -33,4 +33,4 @@ const CardDraw: React.FC<RouteComponentProps> = () => {
   );
 };
 
-export default CardDraw;
+export default ChartDraw;

@@ -3,7 +3,7 @@ import { Global, ThemeProvider, css, withTheme, Theme } from '@emotion/react';
 import { Router } from '@reach/router';
 
 import theme from './theme';
-import { CardDraw, DrawSettings, Settings } from './pages';
+import { ChartDraw, DrawSettings, Settings, About } from './pages';
 
 const globalStyle = (theme: Theme) => css`
   * {
@@ -30,9 +30,10 @@ const App = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
     <Router>
-      <CardDraw path="/" />
+      <ChartDraw path="/" />
       <DrawSettings path="/draw-settings" />
       <Settings path="/settings" />
+      <About path="/settings/about" />
     </Router>
   </ThemeProvider>
 );
