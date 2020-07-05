@@ -18,7 +18,7 @@ const Settings: React.FC<RouteComponentProps> = () => (
     />
     <Content>
       <ListGroup title="General">
-        <ListGroupItem link="/settings/about">About</ListGroupItem>
+        <ListGroupItem link="about">About</ListGroupItem>
       </ListGroup>
     </Content>
   </>
