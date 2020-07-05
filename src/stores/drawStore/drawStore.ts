@@ -5,7 +5,7 @@ import { redrawChart, drawCharts } from './draw';
 import { getDefaultPlaylists } from './playlist';
 import { DrawSettingsProps, PlaylistProps, ChartProps } from '../../types';
 
-const DEFAULT_DRAW_SETTINGS: DrawSettingsProps = {
+export const DEFAULT_DRAW_SETTINGS: DrawSettingsProps = {
   playlist: 'A20',
   style: 'single',
   numCharts: 4,
@@ -24,6 +24,7 @@ interface DrawStateProps {
   chartsDraw: () => void;
   chartRemove: (chartId: string) => void;
   chartRedraw: (chartId: string) => void;
+  drawSettingsModify: (settings: Partial<DrawSettingsProps>) => void;
 }
 
 export const [useStore] = create<DrawStateProps>((set, get) => ({
@@ -60,6 +61,12 @@ export const [useStore] = create<DrawStateProps>((set, get) => ({
           if (chart.id !== chartId) return chart;
           return { ...newChart, id: chart.id };
         });
+      })
+    ),
+  drawSettingsModify: (settings: Partial<DrawSettingsProps>) =>
+    set(
+      produce((state) => {
+        state.store.drawSettings = { ...state.store.drawSettings, ...settings };
       })
     ),
 }));

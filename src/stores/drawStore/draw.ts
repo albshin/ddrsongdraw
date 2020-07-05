@@ -37,17 +37,20 @@ export const drawCharts = (
   drawSettings: DrawSettingsProps
 ) => {
   const chartPool = getValidChartsByLevel(charts, drawSettings);
+  let levelWeights: Record<number, number> = {};
 
+  // If a level weight is not set, use an equal distribution
   if (!drawSettings.levelWeights) {
-    drawSettings.levelWeights = {};
     for (let i = drawSettings.levelMin; i <= drawSettings.levelMax; i++) {
-      drawSettings.levelWeights[i] = 1;
+      levelWeights[i] = 1;
     }
+  } else {
+    levelWeights = drawSettings.levelWeights;
   }
 
   // Weighted drawing methods: https://www.electricmonk.nl/log/2009/12/23/weighted-random-distribution/
   const expandedWeights: number[] = [];
-  Object.entries(drawSettings.levelWeights).forEach(([level, weight]) =>
+  Object.entries(levelWeights).forEach(([level, weight]) =>
     expandedWeights.push(...new Array(weight).fill(level))
   );
 
