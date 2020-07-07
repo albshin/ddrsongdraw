@@ -26,6 +26,7 @@ export const StyledListGroupItem = styled.li<ListGroupItemProps>`
   padding: ${(props) => props.theme.space[3]} ${(props) => props.theme.space[3]};
   border: 1px solid ${(props) => props.theme.colors.gray[3]};
   border-width: 1px 0 1px 0;
+  cursor: ${(props) => props.interactive && 'pointer'};
 
   &:active {
     color: ${(props) => props.interactive && props.theme.colors.white};
