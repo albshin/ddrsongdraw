@@ -9,7 +9,7 @@ import { ChartList } from '../components/ChartList';
 import BottomNav from '../components/BottomNav';
 
 const ChartDraw: React.FC<RouteComponentProps> = () => {
-  const { chartsDraw } = useStore();
+  const chartsDraw = useStore((state) => state.chartsDraw);
 
   const handleCardDraw = useCallback(() => {
     chartsDraw();

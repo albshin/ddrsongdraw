@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
-import ChartListItem from './ChartListItem';
+import shallow from 'zustand/shallow';
 import { Flipper } from 'react-flip-toolkit';
 import { HandleEnterUpdateDeleteArgs } from 'react-flip-toolkit/lib/FlipToolkit/types';
 
 import { useStore } from '../../stores/drawStore';
 import { ListGroup } from '../../components/ListGroup';
+import ChartListItem from './ChartListItem';
 
 const StyledChartList = styled(ListGroup)``;
 
@@ -22,11 +23,10 @@ const handleFlipperAnimations = ({
 };
 
 const ChartList = () => {
-  const {
-    store: { charts },
-    chartRemove,
-    chartRedraw,
-  } = useStore();
+  const [charts, chartRemove, chartRedraw] = useStore(
+    (state) => [state.store.charts, state.chartRemove, state.chartRedraw],
+    shallow
+  );
 
   const handleCardDelete = useCallback((chartId) => {
     chartRemove(chartId);
