@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode !== 'production';
@@ -71,6 +72,7 @@ module.exports = (env, argv) => {
       historyApiFallback: true,
       port: 1234,
     };
+    config.plugins.push(new ReactRefreshWebpackPlugin());
   }
 
   return config;
