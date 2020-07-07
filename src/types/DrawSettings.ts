@@ -1,5 +1,13 @@
+export type DrawSettingsDifficulties =
+  | 'beginner'
+  | 'basic'
+  | 'difficult'
+  | 'expert'
+  | 'challenge';
+
 export interface DrawSettingsProps {
   playlist?: string;
+  difficulties?: Set<DrawSettingsDifficulties>;
   style: 'single' | 'double';
   numCharts: number;
   levelMin: number;

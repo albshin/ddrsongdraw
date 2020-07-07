@@ -4,9 +4,11 @@ import produce from 'immer';
 import { redrawChart, drawCharts } from './draw';
 import { getDefaultPlaylists } from './playlist';
 import { DrawSettingsProps, PlaylistProps, ChartProps } from '../../types';
+import { DrawSettingsDifficulties } from '../../types/DrawSettings';
 
 export const DEFAULT_DRAW_SETTINGS: DrawSettingsProps = {
   playlist: 'A20',
+  difficulties: new Set(['expert', 'challenge']),
   style: 'single',
   numCharts: 4,
   levelMin: 13,
@@ -25,6 +27,7 @@ interface DrawStateProps {
   chartRemove: (chartId: string) => void;
   chartRedraw: (chartId: string) => void;
   drawSettingsModify: (settings: Partial<DrawSettingsProps>) => void;
+  drawSettingsDifficultyToggle: (difficulty: DrawSettingsDifficulties) => void;
 }
 
 export const [useStore] = create<DrawStateProps>((set, get) => ({
@@ -67,6 +70,17 @@ export const [useStore] = create<DrawStateProps>((set, get) => ({
     set(
       produce((state) => {
         state.store.drawSettings = { ...state.store.drawSettings, ...settings };
+      })
+    ),
+  drawSettingsDifficultyToggle: (difficulty: DrawSettingsDifficulties) =>
+    set(
+      produce((state) => {
+        const {
+          drawSettings: { difficulties },
+        } = state.store;
+        difficulties.has(difficulty)
+          ? difficulties.delete(difficulty)
+          : difficulties.add(difficulty);
       })
     ),
 }));
