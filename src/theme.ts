@@ -70,4 +70,5 @@ export default {
     pill: '50rem',
   },
   navbarHeight: '50px',
+  maxWidth: '1024px',
 };

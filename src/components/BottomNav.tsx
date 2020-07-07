@@ -9,11 +9,18 @@ const StyledBottomNav = styled.footer`
   position: fixed;
   bottom: 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: ${(props) => props.theme.colors.background};
   font-size: ${(props) => props.theme.fontSizes[4]};
+`;
+
+const BottomNavContent = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  max-width: ${(props) => props.theme.maxWidth};
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const NavIconContainer = styled.div`
@@ -30,14 +37,16 @@ interface BottomNavProps {
 
 const BottomNav = ({ handleCardDraw }: BottomNavProps) => (
   <StyledBottomNav>
-    <NavIconContainer>
-      <LinkIcon to="draw-settings">
-        <IoMdOptions />
-      </LinkIcon>
-    </NavIconContainer>
-    <NavIconContainer onClick={handleCardDraw}>
-      <GiCardPickup />
-    </NavIconContainer>
+    <BottomNavContent>
+      <NavIconContainer>
+        <LinkIcon to="draw-settings">
+          <IoMdOptions />
+        </LinkIcon>
+      </NavIconContainer>
+      <NavIconContainer onClick={handleCardDraw}>
+        <GiCardPickup />
+      </NavIconContainer>
+    </BottomNavContent>
   </StyledBottomNav>
 );
 

@@ -16,4 +16,9 @@ export const Content = styled.main<ContentProps>`
   margin-top: ${(props) => props.theme.navbarHeight};
   margin-bottom: ${(props) =>
     props.hasBottomNav ? props.theme.navbarHeight : ''};
+
+  width: 100%;
+  max-width: ${(props) => props.theme.maxWidth};
+  margin-left: auto;
+  margin-right: auto;
 `;

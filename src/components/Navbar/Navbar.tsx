@@ -14,14 +14,20 @@ const NavItem = styled.div`
   }
 `;
 
+const NavbarContent = styled.div`
+  display: flex;
+  max-width: ${(props) => props.theme.maxWidth};
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
 const StyledNavbar = styled.nav`
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   color: ${(props) => props.theme.colors.white};
   background-color: #274463;
   font-weight: 500;
@@ -35,9 +41,11 @@ interface NavbarProps {
 
 const Navbar = ({ navLeft, navRight, title }: NavbarProps) => (
   <StyledNavbar>
-    <NavItem>{navLeft}</NavItem>
-    {title && <b>{title}</b>}
-    <NavItem>{navRight}</NavItem>
+    <NavbarContent>
+      <NavItem>{navLeft}</NavItem>
+      {title && <b>{title}</b>}
+      <NavItem>{navRight}</NavItem>
+    </NavbarContent>
   </StyledNavbar>
 );
 
