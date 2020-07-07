@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
+import shallow from 'zustand/shallow';
 
 import { useStore } from '../../stores/drawStore';
 import { Section } from '../../components/Section';
@@ -11,7 +12,14 @@ const LevelText = styled.b`
 `;
 
 const LevelRange = () => {
-  const { store, drawSettingsModify } = useStore();
+  const [levelMin, levelMax, drawSettingsModify] = useStore(
+    (state) => [
+      state.store.drawSettings.levelMin,
+      state.store.drawSettings.levelMax,
+      state.drawSettingsModify,
+    ],
+    shallow
+  );
 
   const handleOnSliderMove = useCallback((values) => {
     const [levelMin, levelMax] = values;
@@ -21,19 +29,13 @@ const LevelRange = () => {
   return (
     <Section>
       <LevelText>
-        Level{' '}
-        {store.drawSettings.levelMin === store.drawSettings.levelMax
-          ? store.drawSettings.levelMin
-          : `${store.drawSettings.levelMin} - ${store.drawSettings.levelMax}`}
+        Level {levelMin === levelMax ? levelMin : `${levelMin} - ${levelMax}`}
       </LevelText>
       <SliderRange
         min={1}
         max={19}
         count={2}
-        defaultValue={[
-          store.drawSettings.levelMin,
-          store.drawSettings.levelMax,
-        ]}
+        defaultValue={[levelMin, levelMax]}
         onChange={handleOnSliderMove}
       />
     </Section>
