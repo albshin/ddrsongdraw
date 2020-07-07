@@ -1,2 +1,1 @@
-import { useStore } from './drawStore';
-export { useStore };
+export { useStore, DEFAULT_DRAW_SETTINGS } from './drawStore';

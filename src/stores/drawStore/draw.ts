@@ -10,7 +10,8 @@ export const getValidChartsByLevel = (
     (chart) =>
       chart.level >= drawSettings.levelMin &&
       chart.level <= drawSettings.levelMax &&
-      chart.style === drawSettings.style
+      chart.style === drawSettings.style &&
+      drawSettings.difficulties.has(chart.difficulty)
   );
 
   validCharts.forEach((chart) => {
@@ -37,24 +38,34 @@ export const drawCharts = (
   drawSettings: DrawSettingsProps
 ) => {
   const chartPool = getValidChartsByLevel(charts, drawSettings);
+  if (Object.keys(chartPool).length === 0) return [];
 
+  let levelWeights: Record<number, number> = {};
+
+  // If a level weight is not set, use an equal distribution
   if (!drawSettings.levelWeights) {
-    drawSettings.levelWeights = {};
     for (let i = drawSettings.levelMin; i <= drawSettings.levelMax; i++) {
-      drawSettings.levelWeights[i] = 1;
+      levelWeights[i] = 1;
     }
+  } else {
+    levelWeights = drawSettings.levelWeights;
   }
 
-  // Weighted drawing methods: https://www.electricmonk.nl/log/2009/12/23/weighted-random-distribution/
-  const expandedWeights: number[] = [];
-  Object.entries(drawSettings.levelWeights).forEach(([level, weight]) =>
-    expandedWeights.push(...new Array(weight).fill(level))
-  );
+  // Expand the draw weights
+  let expandedWeights: number[] = [];
+  Object.entries(levelWeights).forEach(([level, weight]: [string, number]) => {
+    // Only expand level weight if the level exists in the pool
+    if (chartPool[Number(level)]) {
+      expandedWeights.push(...new Array(weight).fill(level));
+    }
+  });
 
   let drawnCharts = [];
 
-  const numDraws = drawSettings.numCharts;
-  for (let i = 0; i < numDraws; i++) {
+  while (drawnCharts.length < drawSettings.numCharts) {
+    // Stop drawing charts when no more charts are available
+    if (expandedWeights.length === 0) break;
+
     const randomLevel =
       expandedWeights[Math.floor(Math.random() * expandedWeights.length)];
     const levelPool = chartPool[randomLevel];
@@ -62,6 +73,11 @@ export const drawCharts = (
 
     drawnCharts.push(levelPool[randomChartIndex]);
     levelPool.splice(randomChartIndex, 1);
+
+    // Remove weights for level if no more charts exist in the level pool
+    if (levelPool.length === 0) {
+      expandedWeights = expandedWeights.filter((lvl) => lvl !== randomLevel);
+    }
   }
 
   return drawnCharts;
