@@ -85,6 +85,18 @@ interface ChartListItemProps
   onCardRedraw: (cardId: string) => void;
 }
 
+const animateItemOnAppear = (el: HTMLElement, i: number) => {
+  spring({
+    values: {
+      opacity: [0, 1],
+    },
+    onUpdate: ({ opacity }: Record<string, number>) => {
+      el.style.opacity = opacity.toString();
+    },
+    delay: i * 150,
+  });
+};
+
 const animateItemOnExit = (
   el: HTMLElement,
   i: number,
@@ -157,13 +169,20 @@ const ChartListItem = ({
         config: { tension: 439, friction: 40, clamp: last },
       });
     },
-    { axis: 'x' }
+    { axis: 'x', filterTaps: true }
   );
 
   return (
-    <Flipped flipId={`chart-${id}`} onExit={animateItemOnExit}>
+    <Flipped
+      flipId={`chart-${id}`}
+      onAppear={animateItemOnAppear}
+      onExit={animateItemOnExit}
+    >
       <SwipeableContainer ref={containerRef} {...bind()}>
-        <StyledChartListItem as={animated.li} style={{ x }}>
+        <StyledChartListItem
+          as={animated.li}
+          style={{ x, touchAction: 'pan-y' }}
+        >
           <Jacket jacket={jacket} difficulty={difficulty} />
           <SongInformation>
             <div>
