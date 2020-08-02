@@ -1,9 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { GiCardPickup } from 'react-icons/gi';
-import { IoMdOptions } from 'react-icons/io';
-
-import { LinkIcon } from './shared';
 
 const StyledBottomNav = styled.footer`
   position: fixed;
@@ -11,6 +7,7 @@ const StyledBottomNav = styled.footer`
   width: 100%;
   background-color: ${(props) => props.theme.colors.background};
   font-size: ${(props) => props.theme.fontSizes[4]};
+  border-top: 1px solid ${(props) => props.theme.colors.gray[2]};
 `;
 
 const BottomNavContent = styled.div`
@@ -31,21 +28,11 @@ const NavIconContainer = styled.div`
   width: 50px;
 `;
 
-interface BottomNavProps {
-  handleCardDraw: () => void;
-}
-
-const BottomNav = ({ handleCardDraw }: BottomNavProps) => (
+const BottomNav = () => (
   <StyledBottomNav>
     <BottomNavContent>
-      <NavIconContainer>
-        <LinkIcon to="draw-settings">
-          <IoMdOptions />
-        </LinkIcon>
-      </NavIconContainer>
-      <NavIconContainer onClick={handleCardDraw}>
-        <GiCardPickup />
-      </NavIconContainer>
+      <NavIconContainer></NavIconContainer>
+      <NavIconContainer></NavIconContainer>
     </BottomNavContent>
   </StyledBottomNav>
 );

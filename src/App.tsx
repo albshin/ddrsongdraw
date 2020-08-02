@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Global, ThemeProvider, css, withTheme, Theme } from '@emotion/react';
 import { Router } from '@reach/router';
 
 import theme from './theme';
 import { ChartDraw, DrawSettings, Settings, About } from './pages';
+import { useStore } from './stores/drawStore';
 
 const globalStyle = (theme: Theme) => css`
   * {
@@ -26,16 +27,25 @@ const GlobalStyle = withTheme(({ theme }: GlobalStyleProps) => {
   return <Global styles={globalStyle(theme)} />;
 });
 
-const App = () => (
-  <ThemeProvider theme={theme}>
-    <GlobalStyle />
-    <Router>
-      <ChartDraw path="/" />
-      <DrawSettings path="/draw-settings" />
-      <Settings path="/settings" />
-      <About path="/settings/about" />
-    </Router>
-  </ThemeProvider>
-);
+const App = () => {
+  const chartsDraw = useStore((state) => state.chartsDraw);
+
+  // Draw charts once when application mounts
+  useEffect(() => {
+    chartsDraw();
+  }, []);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Router>
+        <ChartDraw path="/" />
+        <DrawSettings path="/draw-settings" />
+        <Settings path="/settings" />
+        <About path="/settings/about" />
+      </Router>
+    </ThemeProvider>
+  );
+};
 
 export default App;

@@ -43,6 +43,7 @@ export default {
     expert: '#33eb19',
     challenge: '#eb1eff',
   },
+  breakpoints: ['576px', '768px', '992px', '1200px'],
   space: ['0rem', '0.25rem', '0.5rem', '1rem', '1.5rem', '3rem'],
   shadows: {
     default: '0 .5rem 1rem rgba(0, 0, 0, .15)',
