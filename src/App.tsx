@@ -16,6 +16,7 @@ const globalStyle = (theme: Theme) => css`
   body {
     margin: 0;
     background-color: ${theme.colors.gray[2]};
+    overscroll-behavior-y: none;
   }
 `;
 
