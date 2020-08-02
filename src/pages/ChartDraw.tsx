@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { IoMdSettings, IoMdOptions, IoMdRefresh } from 'react-icons/io';
@@ -49,7 +49,7 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
 
   const bind = useDrag(
     ({ down, movement: [, my], cancel, last, elapsedTime }) => {
-      if (my <= 0) return cancel();
+      if (my <= 0 || window.pageYOffset !== 0) return cancel();
 
       const shouldRedraw = my >= 40 && down;
       setIndicator({
@@ -69,9 +69,9 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
       });
     },
     {
+      enabled: window.pageYOffset === 0,
       axis: 'y',
-      filterTaps: true,
-      bounds: { top: 0, bottom: 50 },
+      bounds: { bottom: 50 },
     }
   );
 
@@ -91,10 +91,7 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
         title="Song Draw"
       />
       <StyledContent>
-        <DraggableList
-          style={{ ...pullProps, touchAction: 'pan-x' }}
-          {...bind()}
-        >
+        <DraggableList style={pullProps} {...bind()}>
           <RedrawIndicator style={indicatorProps}>
             <IoMdRefresh />
           </RedrawIndicator>

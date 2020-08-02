@@ -128,12 +128,7 @@ const ChartListItem = ({
 }: ChartListItemProps) => {
   const isGestureDisabled = useRef(false);
   const containerRef = useRef(null);
-  const containerWidth = useRef(null);
   const activateThreshold = 80;
-
-  useEffect(() => {
-    containerWidth.current = containerRef.current.clientWidth;
-  }, []);
 
   const [{ x }, set] = useSpring(() => ({ x: 0 }));
   let onRest = () => {};
@@ -147,14 +142,14 @@ const ChartListItem = ({
         if (Math.abs(mx) >= activateThreshold) {
           isGestureDisabled.current = true;
           if (mx < 0) {
-            restPosition = -containerWidth.current;
+            restPosition = -containerRef.current.clientWidth;
             onRest = () => {
               onCardRedraw(id);
               isGestureDisabled.current = false;
               set({ x: 0 });
             };
           } else {
-            restPosition = containerWidth.current;
+            restPosition = containerRef.current.clientWidth;
             onRest = () => {
               onCardDelete(id);
             };
@@ -169,7 +164,7 @@ const ChartListItem = ({
         config: { tension: 439, friction: 40, clamp: last },
       });
     },
-    { axis: 'x', filterTaps: true }
+    { axis: 'x' }
   );
 
   return (
