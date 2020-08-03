@@ -1,8 +1,10 @@
 # Song Draw
 
-Song Draw is an app that randomly "draws" songs to play from the arcade game DanceDanceRevolution.
+Song Draw is a progressive web app that randomly "draws" songs to play from the arcade game DanceDanceRevolution.
 
 This app is inspired by DDRCardDraw but without a focus on tournament features such as "banning" and "pocket picking".
+
+**IMPORTANT**: This PWA is not fully supported on iOS Safari and desktop screens at the moment!
 
 ## Development
 
