@@ -4,7 +4,6 @@ import { useTheme } from '@emotion/react';
 import { IoMdSettings, IoMdOptions, IoMdRefresh } from 'react-icons/io';
 import { RouteComponentProps } from '@reach/router';
 import { useSpring, animated, config } from 'react-spring';
-import { useDrag } from 'react-use-gesture';
 
 import { useStore } from '../stores/drawStore';
 import { Layout, Content, LinkIcon } from '../components/shared';
@@ -16,6 +15,10 @@ const DraggableList = styled(animated.div)`
   flex-direction: column;
   position: relative;
   flex: 1;
+`;
+
+const StyledContent = styled(Content)`
+  overflow: hidden;
 `;
 
 const RedrawIndicator = styled(animated.div)`
@@ -39,53 +42,87 @@ const PULL_HOLD_DURATION = 800;
 
 const ChartDraw: React.FC<RouteComponentProps> = () => {
   const theme = useTheme();
-
   const chartsDraw = useStore((state) => state.chartsDraw);
 
-  const [pullProps, setPull] = useSpring(() => ({ y: 0, config: config.slow }));
+  const [pullProps, setPull] = useSpring(() => ({
+    y: 0,
+    config: config.default,
+  }));
   const [indicatorProps, setIndicator] = useSpring(() => ({
     backgroundColor: theme.colors.muted,
     color: theme.colors.black,
     config: { duration: PULL_HOLD_DURATION },
   }));
 
-  const bind = useDrag(
-    ({ down, movement: [, my], cancel, last, elapsedTime, movement }) => {
-      // Do not use gesture when scrolling list
-      if (window.pageYOffset !== 0 || (my < 0 && window.pageYOffset === 0)) {
-        // Immediately reset position if user scrolls hard
-        setPull({
-          y: 0,
-          immediate: movement[1] === 50,
-        });
-        setIndicator({
-          backgroundColor: theme.colors.muted,
-          color: theme.colors.black,
-          immediate: true,
-        });
-        return cancel();
+  // Handle pull to draw
+  const PULL_THRESHOLD = 50;
+  let startY = 0;
+  let topY = 0;
+  let positionY = 0;
+  let pulling = false;
+  let pullingStartTime: number;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    startY = e.touches[0].pageY;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    positionY = e.touches[0].pageY;
+    const delta = startY - positionY;
+
+    if (window.pageYOffset === 0 && delta < 0) {
+      if (!pulling) {
+        topY = positionY;
+        pulling = true;
+        pullingStartTime = Date.now();
       }
-
-      const shouldRedraw = my >= 40 && down;
-      setIndicator({
-        backgroundColor: shouldRedraw ? theme.colors.info : theme.colors.muted,
-        color: shouldRedraw ? theme.colors.white : theme.colors.black,
-        immediate: !down,
-      });
-
-      if (last && my >= 40 && elapsedTime >= PULL_HOLD_DURATION) {
-        chartsDraw();
-      }
-
-      setPull({
-        y: down ? my : 0,
-      });
-    },
-    {
-      axis: 'y',
-      bounds: { bottom: 50 },
+    } else if (window.pageYOffset !== 0 || positionY < topY) {
+      pulling = false;
     }
-  );
+
+    // Limit pull height
+    let pullY = Math.min(positionY - topY, 50);
+    // If list is scrollable, do not allow rubberbanding downwards
+    if (window.innerHeight === document.body.scrollHeight) {
+      pullY = Math.max(pullY, 0);
+    }
+
+    setPull({
+      y: pulling ? pullY : 0,
+    });
+
+    const willDraw = pulling && positionY - topY >= PULL_THRESHOLD;
+    setIndicator({
+      backgroundColor: willDraw ? theme.colors.info : theme.colors.muted,
+      color: willDraw ? theme.colors.white : theme.colors.black,
+      immediate: !pulling,
+    });
+  };
+
+  const handleTouchEnd = () => {
+    const timeDelta = Date.now() - pullingStartTime;
+
+    if (
+      pulling &&
+      positionY - topY >= PULL_THRESHOLD &&
+      timeDelta >= PULL_HOLD_DURATION
+    ) {
+      chartsDraw();
+    }
+
+    // Cleanup
+    topY = 0;
+    pulling = false;
+
+    setPull({
+      y: 0,
+    });
+    setIndicator({
+      backgroundColor: theme.colors.muted,
+      color: theme.colors.black,
+      immediate: true,
+    });
+  };
 
   return (
     <Layout>
@@ -102,14 +139,21 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
         }
         title="Song Draw"
       />
-      <Content>
-        <DraggableList style={pullProps} {...bind()}>
+      <StyledContent>
+        <DraggableList
+          style={{
+            ...pullProps,
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <RedrawIndicator style={indicatorProps}>
             <IoMdRefresh />
           </RedrawIndicator>
           <ChartList />
         </DraggableList>
-      </Content>
+      </StyledContent>
     </Layout>
   );
 };

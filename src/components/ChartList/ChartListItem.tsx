@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { useDrag } from 'react-use-gesture';
 import { Flipped, spring } from 'react-flip-toolkit';
@@ -93,7 +93,7 @@ const animateItemOnAppear = (el: HTMLElement, i: number) => {
     onUpdate: ({ opacity }: Record<string, number>) => {
       el.style.opacity = opacity.toString();
     },
-    delay: i * 150,
+    delay: i * 100,
   });
 };
 
