@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { IoMdSettings, IoMdOptions, IoMdRefresh } from 'react-icons/io';
@@ -39,8 +39,10 @@ const RedrawIndicator = styled(animated.div)`
 `;
 
 const PULL_HOLD_DURATION = 800;
+const PULL_THRESHOLD = 50;
 
 const ChartDraw: React.FC<RouteComponentProps> = () => {
+  const draggableListRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
   const chartsDraw = useStore((state) => state.chartsDraw);
 
@@ -55,26 +57,40 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
   }));
 
   // Handle pull to draw
-  const PULL_THRESHOLD = 50;
-  let startY = 0;
+  let isSwipingChart: Boolean | null = null;
+  let startPos = [0, 0];
   let topY = 0;
   let positionY = 0;
   let pulling = false;
   let pullingStartTime: number;
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    startY = e.touches[0].pageY;
+    const { pageX, pageY } = e.touches[0];
+    startPos = [pageX, pageY];
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    positionY = e.touches[0].pageY;
-    const delta = startY - positionY;
+    if (isSwipingChart) return;
 
-    if (window.pageYOffset === 0 && delta < 0) {
+    const { pageX, pageY } = e.touches[0];
+    const [deltaX, deltaY] = [startPos[0] - pageX, startPos[1] - pageY];
+    positionY = pageY;
+
+    // Disable drag gesture if swiping chart list
+    if (
+      e.target !== draggableListRef.current &&
+      Math.abs(deltaX) > Math.abs(deltaY) &&
+      isSwipingChart === null
+    ) {
+      isSwipingChart = true;
+      return;
+    }
+
+    if (window.pageYOffset === 0 && deltaY < 0) {
       if (!pulling) {
         topY = positionY;
         pulling = true;
-        pullingStartTime = Date.now();
+        pullingStartTime = e.timeStamp;
       }
     } else if (window.pageYOffset !== 0 || positionY < topY) {
       pulling = false;
@@ -99,8 +115,8 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
     });
   };
 
-  const handleTouchEnd = () => {
-    const timeDelta = Date.now() - pullingStartTime;
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const timeDelta = e.timeStamp - pullingStartTime;
 
     if (
       pulling &&
@@ -113,6 +129,7 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
     // Cleanup
     topY = 0;
     pulling = false;
+    isSwipingChart = null;
 
     setPull({
       y: 0,
@@ -141,6 +158,7 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
       />
       <StyledContent>
         <DraggableList
+          ref={draggableListRef}
           style={{
             ...pullProps,
           }}
