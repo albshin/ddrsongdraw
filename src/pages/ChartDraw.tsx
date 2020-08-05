@@ -6,7 +6,7 @@ import { RouteComponentProps } from '@reach/router';
 import { useSpring, animated, config } from 'react-spring';
 
 import { useStore } from '../stores/drawStore';
-import { Layout, Content, LinkIcon } from '../components/shared';
+import { Layout, Content, NavIcon } from '../components/shared';
 import Navbar from '../components/Navbar';
 import { ChartList } from '../components/ChartList';
 
@@ -145,14 +145,14 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
     <Layout>
       <Navbar
         navLeft={
-          <LinkIcon to="settings">
+          <NavIcon to="/settings">
             <IoMdSettings />
-          </LinkIcon>
+          </NavIcon>
         }
         navRight={
-          <LinkIcon to="draw-settings">
+          <NavIcon to="/draw-settings">
             <IoMdOptions />
-          </LinkIcon>
+          </NavIcon>
         }
         title="Song Draw"
       />

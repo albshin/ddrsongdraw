@@ -31,19 +31,28 @@ const StyledNavbar = styled.nav`
   color: ${(props) => props.theme.colors.white};
   background-color: #274463;
   font-weight: 500;
+
+  svg {
+    height: 22px;
+    width: 22px;
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
-interface NavbarProps {
+interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {
   navLeft?: React.ReactNode;
   navRight?: React.ReactNode;
   title?: string;
+  children?: React.ReactNode;
 }
 
-const Navbar = ({ navLeft, navRight, title }: NavbarProps) => (
+const Navbar = ({ navLeft, navRight, title, children }: NavbarProps) => (
   <StyledNavbar>
     <NavbarContent>
       <NavItem>{navLeft}</NavItem>
       {title && <b>{title}</b>}
+      {children}
       <NavItem>{navRight}</NavItem>
     </NavbarContent>
   </StyledNavbar>

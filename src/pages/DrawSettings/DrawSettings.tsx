@@ -4,7 +4,7 @@ import { IoMdClose } from 'react-icons/io';
 import { RouteComponentProps } from '@reach/router';
 
 import Navbar from '../../components/Navbar';
-import { Layout, Content, LinkIcon } from '../../components/shared';
+import { Layout, Content, NavIcon } from '../../components/shared';
 import LevelRange from './LevelRange';
 import Difficulties from './Difficulties';
 
@@ -23,9 +23,9 @@ const DrawSettings: React.FC<RouteComponentProps> = () => {
     <Layout>
       <Navbar
         navLeft={
-          <LinkIcon to="/">
+          <NavIcon to="/">
             <IoMdClose />
-          </LinkIcon>
+          </NavIcon>
         }
         title="Draw Settings"
       />

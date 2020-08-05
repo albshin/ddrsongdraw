@@ -1,4 +1,4 @@
 import { Layout, Content } from './Layout';
-import LinkIcon from './LinkIcon';
+import NavIcon from './NavIcon';
 
-export { Layout, Content, LinkIcon };
+export { Layout, Content, NavIcon };
