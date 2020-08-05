@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import styled from '@emotion/styled';
 import shallow from 'zustand/shallow';
 import { Flipper } from 'react-flip-toolkit';
 import { HandleEnterUpdateDeleteArgs } from 'react-flip-toolkit/lib/FlipToolkit/types';
@@ -7,8 +6,6 @@ import { HandleEnterUpdateDeleteArgs } from 'react-flip-toolkit/lib/FlipToolkit/
 import { useStore } from '../../stores/drawStore';
 import { ListGroup } from '../../components/ListGroup';
 import ChartListItem from './ChartListItem';
-
-const StyledChartList = styled(ListGroup)``;
 
 const handleFlipperAnimations = ({
   hideEnteringElements,
@@ -37,7 +34,7 @@ const ChartList = () => {
   }, []);
 
   return (
-    <StyledChartList>
+    <ListGroup>
       <Flipper
         flipKey={charts.map(({ id }) => id).join(',')}
         handleEnterUpdateDelete={handleFlipperAnimations}
@@ -57,7 +54,7 @@ const ChartList = () => {
           />
         ))}
       </Flipper>
-    </StyledChartList>
+    </ListGroup>
   );
 };
 
