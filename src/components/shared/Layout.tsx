@@ -14,7 +14,7 @@ export const Content = styled.main<ContentProps>`
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow-x: hidden;
+  overflow: hidden;
   margin-top: ${(props) => props.theme.navbarHeight};
   margin-bottom: ${(props) =>
     props.hasBottomNav ? props.theme.navbarHeight : 0};
