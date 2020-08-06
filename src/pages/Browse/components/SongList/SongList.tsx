@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
@@ -21,6 +21,19 @@ const Row = React.memo(({ style, index }: ListChildComponentProps) => {
   );
 });
 
+const innerElementType = React.forwardRef(
+  ({ style, ...props }: any, ref: MutableRefObject<HTMLDivElement>) => (
+    <div
+      ref={ref}
+      style={{
+        ...style,
+        height: `${parseFloat(style.height) + 50}px`,
+      }}
+      {...props}
+    />
+  )
+);
+
 const SongList = () => {
   const { ref, bind } = useWindowScroll();
 
@@ -30,11 +43,12 @@ const SongList = () => {
         <ListGroup>
           <FixedSizeList
             ref={ref}
-            {...bind}
+            innerElementType={innerElementType}
             height={height}
             width={width}
             itemCount={A20Data.length}
             itemSize={67}
+            {...bind}
           >
             {Row}
           </FixedSizeList>
