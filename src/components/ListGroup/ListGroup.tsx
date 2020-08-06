@@ -24,9 +24,9 @@ const ListGroupTitle = styled.p`
   color: ${(props) => props.theme.colors.textMuted};
 `;
 
-export const ListGroup = ({ title, children }: ListGroupProps) => (
+export const ListGroup = ({ title, children, ...props }: ListGroupProps) => (
   <>
     {title && <ListGroupTitle>{title}</ListGroupTitle>}
-    <StyledListGroup>{children}</StyledListGroup>
+    <StyledListGroup {...props}>{children}</StyledListGroup>
   </>
 );
