@@ -9,6 +9,7 @@ import { useStore } from '../stores/drawStore';
 import { Layout, Content, NavIcon } from '../components/shared';
 import Navbar from '../components/Navbar';
 import { ChartList } from '../components/ChartList';
+import BottomNav from '../components/BottomNav';
 
 const DraggableList = styled(animated.div)`
   display: flex;
@@ -156,7 +157,7 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
         }
         title="Song Draw"
       />
-      <StyledContent>
+      <StyledContent hasBottomNav>
         <DraggableList
           ref={draggableListRef}
           style={{
@@ -172,6 +173,7 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
           <ChartList />
         </DraggableList>
       </StyledContent>
+      <BottomNav />
     </Layout>
   );
 };

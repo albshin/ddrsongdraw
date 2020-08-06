@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { IoMdCheckmark, IoMdSync } from 'react-icons/io';
 
 import { StyledListGroupItem } from '../../components/ListGroup';
+import { Jacket } from '../Jacket';
 import { ChartProps } from '../../types';
 
 // Leave this as "any" for now due to react-spring TS performance issues
@@ -40,17 +41,6 @@ const ActionDisplay = styled(animated.div)`
   color: ${(props) => props.theme.colors.white};
   font-size: ${(props) => props.theme.fontSizes[6]};
   z-index: -999;
-`;
-
-const Jacket = styled.div<Pick<ChartProps, 'difficulty' | 'jacket'>>`
-  flex: 0 0 74px;
-  height: 74px;
-  width: 74px;
-  border-radius: ${(props) => props.theme.radii.default};
-  background: ${(props) =>
-    `url("assets/jackets/${props.jacket.replace(/[\""]/g, '\\"')}") no-repeat`};
-  background-size: cover;
-  box-shadow: inset 0px -5px 0px ${(props) => props.theme.colors[props.difficulty]};
 `;
 
 const SongInformation = styled.div`
@@ -178,7 +168,7 @@ const ChartListItem = ({
           as={animated.li}
           style={{ x, touchAction: 'pan-y' }}
         >
-          <Jacket jacket={jacket} difficulty={difficulty} />
+          <Jacket src={jacket} difficulty={difficulty} size={74} />
           <SongInformation>
             <div>
               <SongName>{name}</SongName>

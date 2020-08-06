@@ -1,18 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
-const NavItem = styled.div`
-  display: flex;
-  height: ${(props) => props.theme.navbarHeight};
-  width: 50px;
-  justify-content: center;
-  align-items: center;
-
-  svg {
-    color: inherit;
-    text-decoration: none;
-  }
-`;
+import { NavIcon } from '../shared';
 
 const NavbarContent = styled.div`
   display: flex;
@@ -21,6 +9,11 @@ const NavbarContent = styled.div`
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+`;
+
+const NavbarPlaceholder = styled(NavIcon)`
+  cursor: none;
+  pointer-events: none;
 `;
 
 const StyledNavbar = styled.nav`
@@ -33,8 +26,8 @@ const StyledNavbar = styled.nav`
   font-weight: 500;
 
   svg {
-    height: 22px;
-    width: 22px;
+    height: 24px;
+    width: 24px;
     color: inherit;
     text-decoration: none;
   }
@@ -50,10 +43,10 @@ interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {
 const Navbar = ({ navLeft, navRight, title, children }: NavbarProps) => (
   <StyledNavbar>
     <NavbarContent>
-      <NavItem>{navLeft}</NavItem>
+      {navLeft || <NavbarPlaceholder />}
       {title && <b>{title}</b>}
       {children}
-      <NavItem>{navRight}</NavItem>
+      {navRight || <NavbarPlaceholder />}
     </NavbarContent>
   </StyledNavbar>
 );
