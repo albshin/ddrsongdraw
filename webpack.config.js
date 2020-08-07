@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode !== 'production';
@@ -13,11 +15,15 @@ module.exports = (env, argv) => {
       main: './src/index.tsx',
     },
     output: {
-      filename: '[name].bundle.js',
+      filename: '[name].[contenthash:5].bundle.js',
+      chunkFilename: '[name].[contenthash:5].bundle.js',
       path: path.resolve(__dirname, 'dist'),
       publicPath: '/',
     },
-    devtool: isDevelopment ? 'eval-source-map' : 'source-map',
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.jsx', 'json'],
+    },
+    devtool: isDevelopment ? 'eval-source-map' : false,
     module: {
       rules: [
         {
@@ -33,13 +39,13 @@ module.exports = (env, argv) => {
                     modules: false,
                     useBuiltIns: 'entry',
                     corejs: 3,
-                    targets: '> 0.25%, not dead',
+                    targets: '>1%, not dead, not ie 11, not op_mini all',
                   },
                 ],
                 '@babel/preset-react',
                 '@babel/preset-typescript',
               ],
-              plugins: ['@emotion'],
+              plugins: ['@babel/plugin-syntax-dynamic-import', '@emotion'],
             },
           },
         },
@@ -73,6 +79,10 @@ module.exports = (env, argv) => {
       port: 1234,
     };
     config.plugins.push(new ReactRefreshWebpackPlugin());
+  }
+
+  if (argv.analyze) {
+    config.plugins.push(new BundleAnalyzerPlugin());
   }
 
   return config;
