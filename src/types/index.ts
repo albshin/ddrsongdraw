@@ -1,5 +1,12 @@
 import { SongData, SongProps, ChartProps } from './Song';
-import { DrawSettingsProps } from './DrawSettings';
+import { DrawSettingsProps, DrawSettingsDifficulties } from './DrawSettings';
 import { PlaylistProps } from './Playlist';
 
-export { SongData, SongProps, ChartProps, DrawSettingsProps, PlaylistProps };
+export {
+  SongData,
+  SongProps,
+  ChartProps,
+  DrawSettingsProps,
+  DrawSettingsDifficulties,
+  PlaylistProps,
+};

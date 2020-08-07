@@ -1,11 +1,12 @@
-import { ChartProps } from './Song';
+import { ChartProps } from '.';
 
-type Versions = 'DanceDanceRevolution A20';
+type Games = 'DanceDanceRevolution A20' | 'DanceDanceRevolution A20 PLUS';
 
 export interface PlaylistProps {
   id: string;
   name: string;
-  version: Versions;
-  charts: ChartProps[];
-  isDefault: boolean;
+  game: Games;
+  charts?: ChartProps[];
+  filename?: string;
+  isLocal?: boolean;
 }

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Global, ThemeProvider, css, withTheme, Theme } from '@emotion/react';
 import { Router } from '@reach/router';
+import shallow from 'zustand/shallow';
 
 import theme from './theme';
 import { ChartDraw, DrawSettings, Settings, About, Browse } from './pages';
@@ -29,11 +30,19 @@ const GlobalStyle = withTheme(({ theme }: GlobalStyleProps) => {
 });
 
 const App = () => {
-  const chartsDraw = useStore((state) => state.chartsDraw);
+  const [loadGameData, chartsDraw] = useStore(
+    (state) => [state.loadGameData, state.chartsDraw],
+    shallow
+  );
 
   // Draw charts once when application mounts
   useEffect(() => {
-    chartsDraw();
+    const onLoad = async () => {
+      await loadGameData();
+      chartsDraw();
+    };
+
+    onLoad();
   }, []);
 
   return (

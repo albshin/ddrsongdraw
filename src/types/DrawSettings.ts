@@ -6,7 +6,6 @@ export type DrawSettingsDifficulties =
   | 'challenge';
 
 export interface DrawSettingsProps {
-  playlist?: string;
   difficulties?: Set<DrawSettingsDifficulties>;
   style: 'single' | 'double';
   numCharts: number;

@@ -21,7 +21,7 @@ const handleFlipperAnimations = ({
 
 const ChartList = () => {
   const [charts, chartRemove, chartRedraw] = useStore(
-    (state) => [state.store.charts, state.chartRemove, state.chartRedraw],
+    (state) => [state.store.drawnCharts, state.chartRemove, state.chartRedraw],
     shallow
   );
 

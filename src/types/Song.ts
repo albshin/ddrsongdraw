@@ -29,7 +29,5 @@ export interface SongCharts {
 }
 
 export interface ChartProps
-  extends Partial<Omit<SongProps, 'id' | 'charts'>>,
-    SongCharts {
-  id: string;
-}
+  extends Partial<Omit<SongProps, 'charts'>>,
+    SongCharts {}

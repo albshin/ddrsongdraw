@@ -37,6 +37,8 @@ export const drawCharts = (
   charts: ChartProps[],
   drawSettings: DrawSettingsProps
 ) => {
+  if (!charts) return [];
+
   const chartPool = getValidChartsByLevel(charts, drawSettings);
   if (Object.keys(chartPool).length === 0) return [];
 
