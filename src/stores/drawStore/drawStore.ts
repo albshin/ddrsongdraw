@@ -30,6 +30,7 @@ const DEFAULT_PLAYLISTS: PlaylistProps[] = [
 ];
 
 type GameData = {
+  songs: Partial<SongData>[];
   charts: ChartProps[];
   search: Fuse<Partial<SongData>>;
 };
@@ -58,6 +59,7 @@ export const [useStore] = create<DrawStateProps>((set, get) => ({
     playlists: DEFAULT_PLAYLISTS,
     playlist: DEFAULT_PLAYLISTS[0],
     gameData: {
+      songs: [],
       charts: [],
       search: undefined,
     },
@@ -97,6 +99,7 @@ export const [useStore] = create<DrawStateProps>((set, get) => ({
 
     set(
       produce((state) => {
+        state.store.gameData.songs = songs;
         state.store.gameData.charts = charts;
         state.store.gameData.search = new Fuse(
           songs.map(({ charts, ...rest }) => rest)

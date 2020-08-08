@@ -8,8 +8,8 @@ import SongListItem from './SongListItem';
 import useWindowScroll from '../../../../hooks/useWindowScroll';
 
 const Row = React.memo(({ style, index }: ListChildComponentProps) => {
-  const charts = useStore((state) => state.store.gameData.charts);
-  const { id, name, artist, jacket } = charts[index];
+  const songs = useStore((state) => state.store.gameData.songs);
+  const { id, name, artist, jacket } = songs[index];
 
   return (
     <SongListItem
@@ -36,7 +36,7 @@ const innerElementType = React.forwardRef(
 );
 
 const SongList = () => {
-  const charts = useStore((state) => state.store.gameData.charts);
+  const songs = useStore((state) => state.store.gameData.songs);
   const { ref, bind } = useWindowScroll();
 
   return (
@@ -48,7 +48,7 @@ const SongList = () => {
             innerElementType={innerElementType}
             height={height}
             width={width}
-            itemCount={charts.length}
+            itemCount={songs.length}
             itemSize={67}
             {...bind}
           >
