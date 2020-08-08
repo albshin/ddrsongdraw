@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { IoMdClose } from 'react-icons/io';
+import { X } from 'react-feather';
 import { RouteComponentProps } from '@reach/router';
 
 import Navbar from '../../components/Navbar';
@@ -24,7 +24,7 @@ const DrawSettings: React.FC<RouteComponentProps> = () => {
       <Navbar
         navLeft={
           <NavIcon to="/">
-            <IoMdClose />
+            <X />
           </NavIcon>
         }
         title="Draw Settings"

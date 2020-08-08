@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import shallow from 'zustand/shallow';
-import { IoMdSquareOutline, IoMdCheckbox } from 'react-icons/io';
+import { Square, CheckSquare } from 'react-feather';
 
 import { useStore } from '../../stores/drawStore';
 import { ListGroup, ListGroupItem } from '../../components/ListGroup';
@@ -13,8 +13,8 @@ const DifficultyOption = styled(ListGroupItem)`
   align-items: center;
 
   svg {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
   }
 `;
 
@@ -42,9 +42,9 @@ const Difficulties = () => {
         >
           {diff}
           {!difficulties.has(diff.toLowerCase() as DrawSettingsDifficulties) ? (
-            <IoMdSquareOutline />
+            <Square />
           ) : (
-            <IoMdCheckbox />
+            <CheckSquare />
           )}
         </DifficultyOption>
       ))}

@@ -2,13 +2,14 @@ import React, { MutableRefObject } from 'react';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
-import A20Data from '../../../../data/a20.json';
+import { useStore } from '../../../../stores/drawStore';
 import { ListGroup } from '../../../../components/ListGroup';
 import SongListItem from './SongListItem';
 import useWindowScroll from '../../../../hooks/useWindowScroll';
 
 const Row = React.memo(({ style, index }: ListChildComponentProps) => {
-  const { id, name, artist, jacket } = A20Data[index];
+  const songs = useStore((state) => state.store.gameData.songs);
+  const { id, name, artist, jacket } = songs[index];
 
   return (
     <SongListItem
@@ -35,6 +36,7 @@ const innerElementType = React.forwardRef(
 );
 
 const SongList = () => {
+  const songs = useStore((state) => state.store.gameData.songs);
   const { ref, bind } = useWindowScroll();
 
   return (
@@ -46,7 +48,7 @@ const SongList = () => {
             innerElementType={innerElementType}
             height={height}
             width={width}
-            itemCount={A20Data.length}
+            itemCount={songs.length}
             itemSize={67}
             {...bind}
           >

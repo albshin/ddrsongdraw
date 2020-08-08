@@ -8,12 +8,22 @@
     />
     <meta name="description" content="Song Draw" />
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto&display=swap"
+        rel="stylesheet"
+        type="text/css"
+      />
+    </noscript>
     <title>Song Draw</title>
   </head>
   <body>
+    <noscript>JavaScript must be enabled to use this application.</noscript>
     <div id="app"></div>
   </body>
 </html>

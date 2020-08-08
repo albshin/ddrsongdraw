@@ -1,13 +1,17 @@
 import create from 'zustand';
 import produce from 'immer';
+import Fuse from 'fuse.js';
 
 import { redrawChart, drawCharts } from './draw';
-import { getDefaultPlaylists } from './playlist';
-import { DrawSettingsProps, PlaylistProps, ChartProps } from '../../types';
-import { DrawSettingsDifficulties } from '../../types/DrawSettings';
+import {
+  DrawSettingsProps,
+  PlaylistProps,
+  ChartProps,
+  DrawSettingsDifficulties,
+  SongData,
+} from '../../types';
 
 export const DEFAULT_DRAW_SETTINGS: DrawSettingsProps = {
-  playlist: 'A20',
   difficulties: new Set(['expert', 'challenge']),
   style: 'single',
   numCharts: 4,
@@ -15,14 +19,33 @@ export const DEFAULT_DRAW_SETTINGS: DrawSettingsProps = {
   levelMax: 15,
 };
 
-interface DrawStoreProps {
+const DEFAULT_PLAYLISTS: PlaylistProps[] = [
+  {
+    id: 'DanceDanceRevolution A20',
+    name: 'DanceDanceRevolution A20',
+    game: 'DanceDanceRevolution A20',
+    filename: 'a20.json',
+    isLocal: true,
+  },
+];
+
+type GameData = {
+  songs: Partial<SongData>[];
+  charts: ChartProps[];
+  search: Fuse<Partial<SongData>>;
+};
+
+type DrawStoreProps = {
   drawSettings: DrawSettingsProps;
   playlists: PlaylistProps[];
-  charts: ChartProps[];
-}
+  playlist: Partial<PlaylistProps>;
+  gameData: GameData;
+  drawnCharts: ChartProps[];
+};
 
-interface DrawStateProps {
+export interface DrawStateProps {
   store: DrawStoreProps;
+  loadGameData: () => Promise<void>;
   chartsDraw: () => void;
   chartRemove: (chartId: string) => void;
   chartRedraw: (chartId: string) => void;
@@ -33,14 +56,62 @@ interface DrawStateProps {
 export const [useStore] = create<DrawStateProps>((set, get) => ({
   store: {
     drawSettings: DEFAULT_DRAW_SETTINGS,
-    playlists: getDefaultPlaylists(),
-    charts: [],
+    playlists: DEFAULT_PLAYLISTS,
+    playlist: DEFAULT_PLAYLISTS[0],
+    gameData: {
+      songs: [],
+      charts: [],
+      search: undefined,
+    },
+    drawnCharts: [],
+  },
+  loadGameData: async () => {
+    const { filename, isLocal } = get().store.playlist;
+
+    let songs: SongData[] = [];
+
+    if (isLocal) {
+      try {
+        const { default: data } = await import(
+          /* webpackChunkName: "data" */ `../../data/${filename}`
+        );
+        songs = data;
+      } catch (e) {
+        console.log(`Could not read file: ../../data/${filename}`, e);
+      }
+    }
+
+    let charts: ChartProps[] = [];
+    songs.forEach((songData) => {
+      songData.charts.forEach((chartData) => {
+        charts.push({
+          id: `${songData.id}_${chartData.style}_${chartData.difficulty}`,
+          name: songData.name,
+          alternateNames: songData.alternate_names,
+          artist: songData.artist,
+          artistTranslated: songData.artist_translated,
+          bpm: songData.bpm,
+          jacket: songData.jacket,
+          ...chartData,
+        });
+      });
+    });
+
+    set(
+      produce((state) => {
+        state.store.gameData.songs = songs;
+        state.store.gameData.charts = charts;
+        state.store.gameData.search = new Fuse(
+          songs.map(({ charts, ...rest }) => rest)
+        );
+      })
+    );
   },
   chartsDraw: () =>
     set(
       produce((state) => {
-        state.store.charts = drawCharts(
-          get().store.playlists[0].charts,
+        state.store.drawnCharts = drawCharts(
+          get().store.gameData.charts,
           get().store.drawSettings
         );
       })
@@ -48,7 +119,7 @@ export const [useStore] = create<DrawStateProps>((set, get) => ({
   chartRemove: (chartId: string) =>
     set(
       produce((state) => {
-        state.store.charts = state.store.charts.filter(
+        state.store.drawnCharts = state.store.drawnCharts.filter(
           (chart: ChartProps) => chart.id !== chartId
         );
       })
@@ -57,13 +128,15 @@ export const [useStore] = create<DrawStateProps>((set, get) => ({
     set(
       produce((state) => {
         const newChart = redrawChart(
-          get().store.playlists[0].charts,
+          get().store.gameData.charts,
           get().store.drawSettings
         );
-        state.store.charts = state.store.charts.map((chart: ChartProps) => {
-          if (chart.id !== chartId) return chart;
-          return { ...newChart, id: chart.id };
-        });
+        state.store.drawnCharts = state.store.drawnCharts.map(
+          (chart: ChartProps) => {
+            if (chart.id !== chartId) return chart;
+            return { ...newChart, id: chart.id };
+          }
+        );
       })
     ),
   drawSettingsModify: (settings: Partial<DrawSettingsProps>) =>

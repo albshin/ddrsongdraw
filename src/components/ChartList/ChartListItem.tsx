@@ -3,7 +3,7 @@ import { useSpring, animated } from 'react-spring';
 import { useDrag } from 'react-use-gesture';
 import { Flipped, spring } from 'react-flip-toolkit';
 import styled from '@emotion/styled';
-import { IoMdCheckmark, IoMdSync } from 'react-icons/io';
+import { Check, RefreshCw } from 'react-feather';
 
 import { StyledListGroupItem } from '../../components/ListGroup';
 import { Jacket } from '../Jacket';
@@ -188,12 +188,12 @@ const ChartListItem = ({
           <animated.div
             style={{ display: x.to((x) => (x >= 0 ? 'none' : 'flex')) }}
           >
-            <IoMdSync />
+            <RefreshCw />
           </animated.div>
           <animated.div
             style={{ display: x.to((x) => (x <= 0 ? 'none' : 'flex')) }}
           >
-            <IoMdCheckmark />
+            <Check />
           </animated.div>
         </ActionDisplay>
       </SwipeableContainer>

@@ -2,7 +2,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { ChartProps } from '../../types';
 
-const JacketContainer = styled.div<Pick<JacketProps, 'size' | 'difficulty'>>`
+const JacketContainer = styled.picture<
+  Pick<JacketProps, 'size' | 'difficulty'>
+>`
   position: relative;
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
@@ -35,14 +37,24 @@ export interface JacketProps
   size?: number;
 }
 
-const Jacket = ({ src, size = 48, difficulty, ...props }: JacketProps) => (
-  <JacketContainer size={size} difficulty={difficulty}>
-    <JacketImage
-      src={`assets/jackets/${src.replace(/[\""]/g, '\\"')}`}
-      size={size}
-      {...props}
-    />
-  </JacketContainer>
-);
+const Jacket = ({ src, size = 48, difficulty, ...props }: JacketProps) => {
+  const sanitizedFilename = src.replace(/[\""]/g, '\\"');
+  const baseFilename = sanitizedFilename.split('.').slice(0, -1).join('.');
+
+  return (
+    <JacketContainer size={size} difficulty={difficulty}>
+      <source
+        srcSet={encodeURI(`assets/jackets/${baseFilename}.webp`)}
+        type="image/webp"
+      />
+      <source srcSet={encodeURI(`assets/jackets/${sanitizedFilename}`)} />
+      <JacketImage
+        src={`assets/jackets/${sanitizedFilename}`}
+        size={size}
+        {...props}
+      />
+    </JacketContainer>
+  );
+};
 
 export default Jacket;
