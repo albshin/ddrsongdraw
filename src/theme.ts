@@ -73,6 +73,6 @@ export default {
   navbarHeight: '50px',
   maxWidth: '1024px',
   iconSize: {
-    default: '26px',
+    default: '22px',
   },
 };
