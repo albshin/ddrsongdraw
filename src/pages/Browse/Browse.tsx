@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { RouteComponentProps } from '@reach/router';
-import { Settings } from 'react-feather';
 
-import { Layout, Content, NavIcon } from '../../components/shared';
+import { Layout, Content } from '../../components/shared';
 import Navbar from '../../components/Navbar';
 import { SongList } from './components/SongList';
 import BottomNav from '../../components/BottomNav';
@@ -14,13 +13,7 @@ const StyledContent = styled(Content)`
 
 const Browse: React.FC<RouteComponentProps> = () => (
   <Layout>
-    <Navbar
-      navLeft={
-        <NavIcon to="/settings">
-          <Settings />
-        </NavIcon>
-      }
-    >
+    <Navbar>
       <b>Browse</b>
     </Navbar>
     <StyledContent hasBottomNav>
