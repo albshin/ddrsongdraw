@@ -8,6 +8,8 @@ const JacketContainer = styled.picture<
   position: relative;
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
+  border-radius: ${(props) => props.theme.radii.default};
+  background-color: ${(props) => props.theme.colors.gray[1]};
 
   ${(props) =>
     props.difficulty &&
@@ -51,6 +53,7 @@ const Jacket = ({ src, size = 48, difficulty, ...props }: JacketProps) => {
       <JacketImage
         src={`assets/jackets/${sanitizedFilename}`}
         size={size}
+        alt=""
         {...props}
       />
     </JacketContainer>
