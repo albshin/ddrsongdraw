@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { IoMdListBox, IoMdHome } from 'react-icons/io';
+import { List, Home } from 'react-feather';
 import { NavIcon } from './shared';
 
 const StyledBottomNav = styled.footer`
@@ -12,8 +12,8 @@ const StyledBottomNav = styled.footer`
   color: ${(props) => props.theme.colors.grayDark};
 
   svg {
-    width: 26px;
-    height: 26px;
+    height: ${(props) => props.theme.iconSize.default};
+    width: ${(props) => props.theme.iconSize.default};
   }
 `;
 
@@ -36,10 +36,10 @@ const BottomNav = () => {
     <StyledBottomNav>
       <BottomNavContent>
         <BottomNavIcon to="/">
-          <IoMdHome />
+          <Home />
         </BottomNavIcon>
         <BottomNavIcon to="/browse">
-          <IoMdListBox />
+          <List />
         </BottomNavIcon>
       </BottomNavContent>
     </StyledBottomNav>

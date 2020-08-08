@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
-import { IoMdSettings, IoMdOptions, IoMdRefresh } from 'react-icons/io';
+import { Settings, Sliders, RotateCw } from 'react-feather';
 import { RouteComponentProps } from '@reach/router';
 import { useSpring, animated, config } from 'react-spring';
 
@@ -34,8 +34,8 @@ const RedrawIndicator = styled(animated.div)`
   background-color: ${(props) => props.theme.colors.muted};
 
   svg {
-    height: 26px;
-    width: 26px;
+    height: ${(props) => props.theme.iconSize.default};
+    width: ${(props) => props.theme.iconSize.default};
   }
 `;
 
@@ -147,12 +147,12 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
       <Navbar
         navLeft={
           <NavIcon to="/settings">
-            <IoMdSettings />
+            <Settings />
           </NavIcon>
         }
         navRight={
           <NavIcon to="/draw-settings">
-            <IoMdOptions />
+            <Sliders />
           </NavIcon>
         }
         title="Song Draw"
@@ -168,7 +168,7 @@ const ChartDraw: React.FC<RouteComponentProps> = () => {
           onTouchEnd={handleTouchEnd}
         >
           <RedrawIndicator style={indicatorProps}>
-            <IoMdRefresh />
+            <RotateCw />
           </RedrawIndicator>
           <ChartList />
         </DraggableList>

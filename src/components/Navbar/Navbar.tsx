@@ -26,8 +26,8 @@ const StyledNavbar = styled.nav`
   font-weight: 500;
 
   svg {
-    height: 24px;
-    width: 24px;
+    height: ${(props) => props.theme.iconSize.default};
+    width: ${(props) => props.theme.iconSize.default};
     color: inherit;
     text-decoration: none;
   }

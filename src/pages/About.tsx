@@ -1,17 +1,31 @@
 import React from 'react';
-import { Link, RouteComponentProps } from '@reach/router';
-import { IoMdArrowBack, IoLogoGithub } from 'react-icons/io';
+import styled from '@emotion/styled';
+import { RouteComponentProps } from '@reach/router';
+import { ArrowLeft, GitHub } from 'react-feather';
 
 import { Content, NavIcon } from '../components/shared';
 import Navbar from '../components/Navbar';
 import { Section } from '../components/Section';
+
+const GitHubInfo = styled.div`
+  display: inline-flex;
+  align-self: center;
+
+  svg {
+    top: 0.125em;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    margin-right: ${(props) => props.theme.space[1]};
+  }
+`;
 
 const About: React.FC<RouteComponentProps> = () => (
   <>
     <Navbar
       navLeft={
         <NavIcon to="/settings">
-          <IoMdArrowBack />
+          <ArrowLeft />
         </NavIcon>
       }
       title="About"
@@ -27,9 +41,12 @@ const About: React.FC<RouteComponentProps> = () => (
         on tournament features such as "banning" and "pocket picking".
         <br />
         <br />
-        The source code is available on <IoLogoGithub />
-        <a href="https://github.com/albshin/ddrsongdraw">GitHub</a>. All
-        contributions are welcome!
+        The source code is available on{' '}
+        <GitHubInfo>
+          <GitHub />
+          <a href="https://github.com/albshin/ddrsongdraw">GitHub</a>
+        </GitHubInfo>
+        . All contributions are welcome!
       </Section>
     </Content>
   </>

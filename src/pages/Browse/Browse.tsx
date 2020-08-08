@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { RouteComponentProps } from '@reach/router';
-import { IoMdSettings } from 'react-icons/io';
+import { Settings } from 'react-feather';
 
 import { Layout, Content, NavIcon } from '../../components/shared';
 import Navbar from '../../components/Navbar';
@@ -17,7 +17,7 @@ const Browse: React.FC<RouteComponentProps> = () => (
     <Navbar
       navLeft={
         <NavIcon to="/settings">
-          <IoMdSettings />
+          <Settings />
         </NavIcon>
       }
     >

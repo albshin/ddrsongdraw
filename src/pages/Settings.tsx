@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { RouteComponentProps, navigate } from '@reach/router';
-import { IoMdArrowBack } from 'react-icons/io';
+import { ArrowLeft } from 'react-feather';
 
 import { Content, NavIcon } from '../components/shared';
 import Navbar from '../components/Navbar';
@@ -17,7 +17,7 @@ const Settings: React.FC<RouteComponentProps> = () => {
         title="Settings"
         navLeft={
           <NavIcon onClick={handleOnClickBack}>
-            <IoMdArrowBack />
+            <ArrowLeft />
           </NavIcon>
         }
       />
