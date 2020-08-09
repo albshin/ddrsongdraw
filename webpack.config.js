@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
+const OfflinePlugin = require('offline-plugin');
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode !== 'production';
@@ -79,6 +80,16 @@ module.exports = (env, argv) => {
       port: 1234,
     };
     config.plugins.push(new ReactRefreshWebpackPlugin());
+  } else {
+    config.plugins.push(
+      new OfflinePlugin({
+        ServiceWorker: {
+          events: true,
+        },
+        externals: ['/'],
+        excludes: ['assets/jackets/*'],
+      })
+    );
   }
 
   if (argv.analyze) {

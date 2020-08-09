@@ -33,6 +33,7 @@ type GameData = {
   songs: Partial<SongData>[];
   charts: ChartProps[];
   search: Fuse<Partial<SongData>>;
+  updateAvailable: Boolean;
 };
 
 type DrawStoreProps = {
@@ -45,7 +46,8 @@ type DrawStoreProps = {
 
 export interface DrawStateProps {
   store: DrawStoreProps;
-  loadGameData: () => Promise<void>;
+  gameDataLoad: () => Promise<void>;
+  gameDataSetUpdate: (value: Boolean) => void;
   chartsDraw: () => void;
   chartRemove: (chartId: string) => void;
   chartRedraw: (chartId: string) => void;
@@ -62,10 +64,11 @@ export const [useStore] = create<DrawStateProps>((set, get) => ({
       songs: [],
       charts: [],
       search: undefined,
+      updateAvailable: false,
     },
     drawnCharts: [],
   },
-  loadGameData: async () => {
+  gameDataLoad: async () => {
     const { filename, isLocal } = get().store.playlist;
 
     let songs: SongData[] = [];
@@ -104,6 +107,13 @@ export const [useStore] = create<DrawStateProps>((set, get) => ({
         state.store.gameData.search = new Fuse(
           songs.map(({ charts, ...rest }) => rest)
         );
+      })
+    );
+  },
+  gameDataSetUpdate: (value) => {
+    set(
+      produce((state) => {
+        state.store.gameData.updateAvailable = value;
       })
     );
   },

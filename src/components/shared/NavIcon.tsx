@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Link } from '@reach/router';
-import { useTheme } from '@emotion/react';
+import Link from './Link';
 
 const StyledNavIcon = styled.div`
   display: flex;
@@ -32,27 +31,10 @@ export interface NavIconProps extends React.HTMLAttributes<HTMLDivElement> {
   to?: string;
 }
 
-const NavIcon = ({ children, to, ...props }: NavIconProps) => {
-  const theme = useTheme();
-
-  return (
-    <StyledNavIcon {...props}>
-      {to ? (
-        <StyledLink
-          to={to}
-          getProps={({ isCurrent }) => ({
-            style: {
-              color: isCurrent ? theme.colors.primary || 'inherit' : 'inherit',
-            },
-          })}
-        >
-          {children}
-        </StyledLink>
-      ) : (
-        children
-      )}
-    </StyledNavIcon>
-  );
-};
+const NavIcon = ({ children, to, ...props }: NavIconProps) => (
+  <StyledNavIcon {...props}>
+    {to ? <StyledLink to={to}>{children}</StyledLink> : children}
+  </StyledNavIcon>
+);
 
 export default NavIcon;

@@ -6,6 +6,7 @@ import shallow from 'zustand/shallow';
 import theme from './theme';
 import { ChartDraw, DrawSettings, Settings, About, Browse } from './pages';
 import { useStore } from './stores/drawStore';
+import installServiceWorker from './serviceWorker';
 
 const globalStyle = (theme: Theme) => css`
   * {
@@ -30,15 +31,16 @@ const GlobalStyle = withTheme(({ theme }: GlobalStyleProps) => {
 });
 
 const App = () => {
-  const [loadGameData, chartsDraw] = useStore(
-    (state) => [state.loadGameData, state.chartsDraw],
+  installServiceWorker();
+  const [gameDataLoad, chartsDraw] = useStore(
+    (state) => [state.gameDataLoad, state.chartsDraw],
     shallow
   );
 
   // Draw charts once when application mounts
   useEffect(() => {
     const onLoad = async () => {
-      await loadGameData();
+      await gameDataLoad();
       chartsDraw();
     };
 

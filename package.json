@@ -34,6 +34,7 @@
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.0.5",
     "html-webpack-plugin": "^4.3.0",
+    "offline-plugin": "^5.0.7",
     "prettier": "^2.0.5",
     "react-refresh": "^0.8.3",
     "sharp": "^0.25.4",
