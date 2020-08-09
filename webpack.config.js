@@ -83,6 +83,9 @@ module.exports = (env, argv) => {
   } else {
     config.plugins.push(
       new OfflinePlugin({
+        ServiceWorker: {
+          events: true,
+        },
         externals: ['/'],
         excludes: ['assets/jackets/*'],
       })

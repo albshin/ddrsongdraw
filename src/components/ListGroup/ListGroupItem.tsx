@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, ReactNode, useCallback } from 'react';
 import styled from '@emotion/styled';
-import { Link } from '@reach/router';
+import { Link } from '../shared';
 
 export interface ListGroupItemProps extends HTMLAttributes<HTMLLIElement> {
   children?: ReactNode;
