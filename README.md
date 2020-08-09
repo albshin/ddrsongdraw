@@ -2,9 +2,13 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7a9315cb-8c4c-4c44-86f5-728955b4b52c/deploy-status)](https://app.netlify.com/sites/modest-panini-3a918c/deploys)
 
-Song Draw is a progressive web app that randomly "draws" songs to play from the arcade game DanceDanceRevolution.
+<p align="center">
+  <img src="https://github.com/albshin/ddrsongdraw/blob/master/preview.png?raw=true">
+</p>
 
-This app is inspired by [DDRCardDraw](https://ddrdraw.surge.sh) but without a focus on tournament features such as "banning" and "pocket picking".
+Song Draw is a progressive web app that randomly "draws" songs to play from the arcade game DanceDanceRevolution. This app is inspired by [DDRCardDraw](https://ddrdraw.surge.sh) but without a focus on tournament features such as "banning" and "pocket picking".
+
+
 
 ## 🌐 Supported Browsers
 
